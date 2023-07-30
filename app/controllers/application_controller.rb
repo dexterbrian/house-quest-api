@@ -13,7 +13,7 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/properties" do
-    properties = Property.create(
+    property = Property.create(
       owner_id: params[:owner_id],
       house_type: params[:house_type],
       rent: params[:rent],
@@ -25,12 +25,12 @@ class ApplicationController < Sinatra::Base
       coordinates: params[:coordinates],
       other_info: params[:other_info]
     )
-    properties.to_json
+    property.to_json
   end
 
   get "/properties/:id" do
-    properties = Property.find(params[:id])
-    properties.to_json
+    property = Property.find(params[:id])
+    property.to_json
   end
 
   # Owners endpoints
@@ -38,19 +38,19 @@ class ApplicationController < Sinatra::Base
     owners = Owner.all
     owners.to_json
   end
-  
+
   post "/owners" do
-    owners = Owner.create(
+    owner = Owner.create(
       name: params[:name],
       email: params[:email],
       phone: params[:phone]
     )
-    owners.to_json
+    owner.to_json
   end
 
   get "/owners/:id" do
-    owners = Owner.find(params[:id])
-    owners.to_json
+    owner = Owner.find(params[:id])
+    owner.to_json
   end
 
 end

@@ -5,6 +5,7 @@ class CreateProperties < ActiveRecord::Migration[6.1]
       t.string :type
       t.integer :rent
       t.datetime :rent_due_date
+      t.string :city
       t.string :location
       t.string :building
       t.integer :floor

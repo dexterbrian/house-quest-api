@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2023_07_30_145452) do
     t.string "type"
     t.integer "rent"
     t.datetime "rent_due_date"
+    t.string "city"
     t.string "location"
     t.string "building"
     t.integer "floor"

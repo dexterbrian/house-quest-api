@@ -111,6 +111,90 @@ class ApplicationController < Sinatra::Base
     end
   end
 
+  patch "/properties/:id" do
+    begin
+      property = Property.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      {
+        error: true,
+        message: "Record not found"
+      }.to_json
+    else
+      property.update(
+        house_type: params[:house_type],
+        rent: params[:rent],
+        rent_due_date: params[:rent_due_date],
+        city: params[:city],
+        location: params[:location],
+        building: params[:building],
+        floor: params[:floor],
+        coordinates: params[:coordinates],
+        other_info: params[:other_info]
+      )
+      property.to_json(
+        only: [
+          :id,
+          :house_type,
+          :rent,
+          :rent_due_date,
+          :city,
+          :location,
+          :building,
+          :floor,
+          :coordinates,
+          :other_info,
+          :created_at
+        ],
+        include: {
+          owner: {
+            only: [
+              :name,
+              :email,
+              :phone
+            ]
+          }
+        }
+      )
+    end
+  end
+
+  delete "/properties/:id" do
+    begin
+      property = Property.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      {
+        error: true,
+        message: "Record not found"
+      }.to_json
+    else
+      property.destroy
+      property.to_json(
+        only: [
+          :id,
+          :house_type,
+          :rent,
+          :rent_due_date,
+          :city,
+          :location,
+          :building,
+          :floor,
+          :coordinates,
+          :other_info,
+          :created_at
+        ],
+        include: {
+          owner: {
+            only: [
+              :name,
+              :email,
+              :phone
+            ]
+          }
+        }
+      )
+    end
+  end
+
   # Owners endpoints
   get "/owners" do
     owners = Owner.all

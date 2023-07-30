@@ -76,31 +76,39 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/properties/:id" do
-    property = Property.find(params[:id])
-    property.to_json(
-      only: [
-        :id,
-        :house_type,
-        :rent,
-        :rent_due_date,
-        :city,
-        :location,
-        :building,
-        :floor,
-        :coordinates,
-        :other_info,
-        :created_at
-      ],
-      include: {
-        owner: {
-          only: [
-            :name,
-            :email,
-            :phone
-          ]
+    begin
+      property = Property.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      {
+        error: true,
+        message: "Record not found"
+      }.to_json
+    else
+      property.to_json(
+        only: [
+          :id,
+          :house_type,
+          :rent,
+          :rent_due_date,
+          :city,
+          :location,
+          :building,
+          :floor,
+          :coordinates,
+          :other_info,
+          :created_at
+        ],
+        include: {
+          owner: {
+            only: [
+              :name,
+              :email,
+              :phone
+            ]
+          }
         }
-      }
-    )
+      )
+    end
   end
 
   # Owners endpoints
@@ -153,70 +161,86 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/owners/:id" do
-    owner = Owner.find(params[:id])
-    owner.to_json(
-      only: [
-        :id,
-        :name,
-        :email,
-        :phone,
-        :created_at
-      ],
-      include: {
-        properties: {
-          only: [
-            :id,
-            :owner_id,
-            :house_type,
-            :rent,
-            :rent_due_date,
-            :city,
-            :location,
-            :building,
-            :floor,
-            :coordinates,
-            :other_info,
-            :created_at
-          ]
+    begin
+      owner = Owner.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      {
+        error: true,
+        message: "Record not found"
+      }.to_json
+    else
+      owner.to_json(
+        only: [
+          :id,
+          :name,
+          :email,
+          :phone,
+          :created_at
+        ],
+        include: {
+          properties: {
+            only: [
+              :id,
+              :owner_id,
+              :house_type,
+              :rent,
+              :rent_due_date,
+              :city,
+              :location,
+              :building,
+              :floor,
+              :coordinates,
+              :other_info,
+              :created_at
+            ]
+          }
         }
-      }
-    )
+      )
+    end
   end
 
   patch "/owners/:id" do
-    owner = Owner.find(params[:id])
-    owner.update(
-      name: params[:name],
-      email: params[:email],
-      phone: params[:phone]
-    )
-    owner.to_json(
-      only: [
-        :id,
-        :name,
-        :email,
-        :phone,
-        :created_at
-      ],
-      include: {
-        properties: {
-          only: [
-            :id,
-            :owner_id,
-            :house_type,
-            :rent,
-            :rent_due_date,
-            :city,
-            :location,
-            :building,
-            :floor,
-            :coordinates,
-            :other_info,
-            :created_at
-          ]
+    begin
+      owner = Owner.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      {
+        error: true,
+        message: "Record not found"
+      }.to_json
+    else
+      owner.update(
+        name: params[:name],
+        email: params[:email],
+        phone: params[:phone]
+      )
+      owner.to_json(
+        only: [
+          :id,
+          :name,
+          :email,
+          :phone,
+          :created_at
+        ],
+        include: {
+          properties: {
+            only: [
+              :id,
+              :owner_id,
+              :house_type,
+              :rent,
+              :rent_due_date,
+              :city,
+              :location,
+              :building,
+              :floor,
+              :coordinates,
+              :other_info,
+              :created_at
+            ]
+          }
         }
-      }
-    )
+      )
+    end
   end
 
   delete "/owners/:id" do

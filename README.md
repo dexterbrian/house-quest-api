@@ -40,5 +40,5 @@ This will run your server on port
 You can start the React App with:
 
 ```console
-$ npm start
+$ npm run dev
 ```

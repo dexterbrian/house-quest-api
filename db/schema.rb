@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_30_145452) do
+ActiveRecord::Schema.define(version: 2023_07_30_162021) do
 
   create_table "owners", force: :cascade do |t|
     t.string "name"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2023_07_30_145452) do
 
   create_table "properties", force: :cascade do |t|
     t.integer "owner_id"
-    t.string "type"
+    t.string "house_type"
     t.integer "rent"
     t.datetime "rent_due_date"
     t.string "city"

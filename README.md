@@ -27,7 +27,7 @@ For this project, you must:
 You can start your server with:
 
 ```console
-$ bundle exec rake server
+$ rackup config.ru
 ```
 
 This will run your server on port

@@ -15,7 +15,7 @@ Here's a link to the deployed Sinatra Backend API: TO BE DEPLOYED
 
 ## Requirements
 
-For this project, you must:
+For this project, you must have installed:
 
 - Ruby
 

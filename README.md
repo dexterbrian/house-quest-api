@@ -6,6 +6,9 @@ This is a simple Sinatra API backend that uses Active Record to access and persi
 
 Here's a link to the [React Frontend Github Repo](https://github.com/dexterbrian/house-quest).
 
+Here's a link to the Deployed Sinatra Backend API:
+<!-- [Deployed Sinatra Backend API](https://github.com/dexterbrian/house-quest). -->
+
 ## Requirements
 
 For this project, you must:

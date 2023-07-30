@@ -3,13 +3,37 @@ class ApplicationController < Sinatra::Base
   
   # Add your routes here
   get "/" do
-    { message: "Good luck with your project!" }.to_json
+    { message: "Welcome to House Quest API" }.to_json
   end
 
   # Properties endpoints
+  # Get all properties including owner's contact info for each property
   get "/properties" do 
     properties = Property.all
-    properties.to_json
+    properties.to_json(
+      only: [
+        :id,
+        :house_type,
+        :rent,
+        :rent_due_date,
+        :city,
+        :location,
+        :building,
+        :floor,
+        :coordinates,
+        :other_info,
+        :created_at
+      ],
+      include: {
+        owner: {
+          only: [
+            :name,
+            :email,
+            :phone
+          ]
+        }
+      }
+    )
   end
 
   post "/properties" do
@@ -25,18 +49,72 @@ class ApplicationController < Sinatra::Base
       coordinates: params[:coordinates],
       other_info: params[:other_info]
     )
-    property.to_json
+    property.to_json(
+      only: [
+        :id,
+        :house_type,
+        :rent,
+        :rent_due_date,
+        :city,
+        :location,
+        :building,
+        :floor,
+        :coordinates,
+        :other_info,
+        :created_at
+      ],
+      include: {
+        owner: {
+          only: [
+            :name,
+            :email,
+            :phone
+          ]
+        }
+      }
+    )
   end
 
   get "/properties/:id" do
     property = Property.find(params[:id])
-    property.to_json
+    property.to_json(
+      only: [
+        :id,
+        :house_type,
+        :rent,
+        :rent_due_date,
+        :city,
+        :location,
+        :building,
+        :floor,
+        :coordinates,
+        :other_info,
+        :created_at
+      ],
+      include: {
+        owner: {
+          only: [
+            :name,
+            :email,
+            :phone
+          ]
+        }
+      }
+    )
   end
 
   # Owners endpoints
   get "/owners" do
     owners = Owner.all
-    owners.to_json
+    owners.to_json(
+      only: [
+        :id,
+        :name,
+        :email,
+        :phone,
+        :created_at
+      ]
+    )
   end
 
   post "/owners" do
@@ -45,12 +123,64 @@ class ApplicationController < Sinatra::Base
       email: params[:email],
       phone: params[:phone]
     )
-    owner.to_json
+    owner.to_json(
+      only: [
+        :id,
+        :name,
+        :email,
+        :phone,
+        :created_at
+      ],
+      include: {
+        properties: {
+          only: [
+            :id,
+            :owner_id,
+            :house_type,
+            :rent,
+            :rent_due_date,
+            :city,
+            :location,
+            :building,
+            :floor,
+            :coordinates,
+            :other_info,
+            :created_at
+          ]
+        }
+      }
+    )
   end
 
   get "/owners/:id" do
     owner = Owner.find(params[:id])
-    owner.to_json
+    owner.to_json(
+      only: [
+        :id,
+        :name,
+        :email,
+        :phone,
+        :created_at
+      ],
+      include: {
+        properties: {
+          only: [
+            :id,
+            :owner_id,
+            :house_type,
+            :rent,
+            :rent_due_date,
+            :city,
+            :location,
+            :building,
+            :floor,
+            :coordinates,
+            :other_info,
+            :created_at
+          ]
+        }
+      }
+    )
   end
 
 end

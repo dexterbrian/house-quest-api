@@ -24,6 +24,12 @@ For this project, you must:
 
 [fork link]: https://github.com/dexterbrian/house-quest-api/fork
 
+You can run migrations and add seed data to the database using:
+
+```console
+$ bundle exec rake db:migrate db:seed
+```
+
 You can start your server with:
 
 ```console

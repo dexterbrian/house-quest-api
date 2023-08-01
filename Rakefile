@@ -2,7 +2,7 @@ require_relative "./config/environment"
 require "sinatra/activerecord/rake"
 
 desc "Start the server"
-task :setup do  
+task :server do  
   # if ActiveRecord::Base.connection.migration_context.needs_migration?
   #   puts "Migrations are pending. Make sure to run `rake db:migrate` first."
   #   return
@@ -16,7 +16,7 @@ task :setup do
   # -b runs in the background (include it or binding.pry won't work)
   # exec "bundle exec rerun -b '#{rackup}'"
 
-  exec "bundle install && bundle exec rake db:migrate db:seed"
+  exec "bundle lock --add-platform x86_64-linux && bundle install && bundle exec rake db:migrate db:seed"
 end
 
 desc "Start the console"
